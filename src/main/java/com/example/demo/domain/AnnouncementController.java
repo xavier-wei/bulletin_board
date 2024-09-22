@@ -61,6 +61,9 @@ public class AnnouncementController {
             // 使用 AnnouncementService 保存圖片並獲取圖片 URL
             String imageUrl = announcementService.saveImage(file);
             response.put("imageUrl", imageUrl);
+
+            System.out.println("response>>>"+response);
+
         } catch (IOException e) {
             e.printStackTrace();
             response.put("error", "圖片上傳失敗");

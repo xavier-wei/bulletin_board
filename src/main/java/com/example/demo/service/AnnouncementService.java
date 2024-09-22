@@ -59,4 +59,5 @@ public class AnnouncementService {
         // 返回圖片的 URL
         return "/images/" + fileName; // 這裡的路徑保持不變
     }
+//    http://localhost:8080/images/883194ea-4d4a-4260-a3a0-ef91424cec18_史迪奇.jpg
 }

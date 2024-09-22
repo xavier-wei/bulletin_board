@@ -34,7 +34,7 @@
         </div>
         <div class="form-group">
             <label for="content">公布內容</label>
-            <div id="content"></div>
+            <div id="content" th:utext="${announcement.content}"></div>
             <input type="hidden" name="content" th:field="*{content}" id="hiddenContent">
         </div>
         <button type="submit" class="btn btn-primary">提交</button>
@@ -98,8 +98,11 @@
 
     // 將圖片 URL 插入到 Quill 編輯器
     function insertToEditor(url) {
+        console.log('url>>>', url);
+        const absoluteUrl = `${window.location.origin}${url}`; // 將相對路徑轉為絕對路徑
+        console.log('absoluteUrl',absoluteUrl)
         const range = quill.getSelection();
-        quill.insertEmbed(range.index, 'image', url);
+        quill.insertEmbed(range.index, 'image', absoluteUrl);
     }
 
     // 提交表單時，將 Quill 編輯器的內容寫入隱藏的 input
