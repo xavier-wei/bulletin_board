@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>公告列表</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">公告列表</h1>
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>標題</th>
+            <th>公布者</th>
+            <th>發佈日期</th>
+            <th>截止日期</th>
+            <th>內容</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="announcement : ${announcements}">
+            <td th:text="${announcement.id}"></td>
+            <td th:text="${announcement.title}"></td>
+            <td th:text="${announcement.publisher}"></td>
+            <td th:text="${announcement.releaseDate != null ? announcement.releaseDate : '未設定'}"></td>
+            <td th:text="${announcement.expirationDate != null ? announcement.expirationDate : '未設定'}"></td>
+            <td th:utext="${announcement.content}"></td>
+            <td>
+                <a th:href="@{/announcements/edit/{id}(id=${announcement.id})}" class="btn btn-warning btn-sm">編輯</a>
+                <a th:href="@{/announcements/delete/{id}(id=${announcement.id})}"
+                   class="btn btn-danger btn-sm"
+                   th:onclick="'return confirm(\'確定要刪除這個公告嗎？\');'">刪除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="mt-3">
+        <a th:href="@{/announcements/new}" class="btn btn-primary">新增公告</a>
+    </div>
+</div>
+</body>
+</html>
