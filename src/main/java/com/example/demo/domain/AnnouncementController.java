@@ -20,7 +20,6 @@ public class AnnouncementController {
     @Autowired
     private AnnouncementService announcementService;
 
-
     @GetMapping("")
     public String listAnnouncements(Model model) {
         model.addAttribute("announcements", announcementService.findAll());
@@ -33,18 +32,28 @@ public class AnnouncementController {
         return "form";  // 直接返回模板的名稱
     }
 
-
     @PostMapping
     public String createAnnouncement(@ModelAttribute Announcement announcement) {
-        System.out.println("announcement>>"+announcement);
+        System.out.println("announcement>>" + announcement);
         announcementService.save(announcement); // 儲存公告到資料庫
         return "redirect:/announcements"; // 提交後重定向到公告列表頁面
     }
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        model.addAttribute("announcement", announcementService.findById(id));
+        Announcement announcement = announcementService.findById(id);
+        if (announcement == null) {
+            return "redirect:/announcements"; // 如果找不到，重定向到列表
+        }
+        model.addAttribute("announcement", announcement);
         return "form";  // 直接返回模板的名稱
+    }
+
+    @PostMapping("/update")
+    public String updateAnnouncement(@ModelAttribute Announcement announcement) {
+        System.out.println("Updating announcement: " + announcement);
+        announcementService.update(announcement); // 更新公告資料
+        return "redirect:/announcements"; // 提交後重定向到公告列表頁面
     }
 
     @GetMapping("/delete/{id}")
@@ -62,7 +71,7 @@ public class AnnouncementController {
             String imageUrl = announcementService.saveImage(file);
             response.put("imageUrl", imageUrl);
 
-            System.out.println("response>>>"+response);
+            System.out.println("response>>>" + response);
 
         } catch (IOException e) {
             e.printStackTrace();

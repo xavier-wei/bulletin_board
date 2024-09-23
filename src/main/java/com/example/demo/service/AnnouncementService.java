@@ -35,6 +35,10 @@ public class AnnouncementService {
         return announcementRepository.save(announcement);
     }
 
+    public void update(Announcement announcement) {
+        announcementRepository.save(announcement);
+    }
+
     public void delete(Long id) {
         announcementRepository.deleteById(id);
     }

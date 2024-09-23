@@ -16,6 +16,7 @@
 <div class="container mt-5">
     <h1 class="mb-3">公告表單</h1>
     <form th:action="@{/announcements}" th:object="${announcement}" method="post" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{id}" />
         <div class="form-group">
             <label for="title">標題</label>
             <input type="text" id="title" th:field="*{title}" class="form-control" required>
